@@ -71,27 +71,45 @@ Stack* ScalarConverter::returnBasedOnCondtion(char c){
     return this->_stack;
 }
 
-void pushStringToStack(std::string str, Stack* _stack){
-    for (int i = str.length(); i >= 0; i--){
-        _stack->push(str[i]);
-    }
-    
-    // size_t size = _stack->getTop();
-    // for (int i = 0; i < (int)size; i++){
-    //     std::cout << "->> " <<_stack->peek() << std::endl;
-    //     _stack->pop();
-    // }
-}
 // The only  think that I can relay on when it comes to handle
 // Int cast is the string must conatins these rules
 // (0.0) || (0.0f) || (0) || (-0.0) || (-42) || (+42) || (-42.0)
 // fi9 ma3ana atabi
 // so + and - should not be exist
+bool checkStackIfValidToContinue(Stack *_stack, char ch){
+    int count = 0;
+    for (int i = 0; i < _stack->getTop(); i++){
+        if ((_stack->peek() == ch)){
+            count++;
+        }
+        _stack->pop();
+    }
+    if (count == 1)
+        return true;
+    std::cout << "I was here" << std::endl;
+    return false;
+}
+
+bool pushStringToStack(std::string str, Stack* _stack){
+    Stack *_reversedStack = new Stack();
+    for (int i = str.length(); i >= 0; i--)
+        _stack->push(str[i]);
+    if (!checkStackIfValidToContinue(_stack, '-'))
+        return false;
+    size_t size = _stack->getTop();
+    for (int i = 0; i < (int)size; i++){
+        _reversedStack->push(_stack->peek());        
+        _stack->pop();
+    }
+    
+    return true;
+}
+
 void ScalarConverter::displayInt(std::string str)
 {
     Stack* _stack = new Stack();
-    pushStringToStack(str, _stack);
-    std::cout << "-> " << atoi(str.c_str()) << std::endl;
+    if (pushStringToStack(str, _stack) == false)
+        return;
     if (strrchr(str.c_str(), 'f') != 0){
         str = str.substr(0, strrchr(str.c_str(), 'f') - str.c_str());
         int n = atoi(str.c_str());
