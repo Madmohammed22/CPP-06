@@ -7,6 +7,10 @@
 #include <string>
 #include <stdio.h>
 #include <bits/stdc++.h>
+#include <limits>
+#include "Stack.hpp"
+
+class Stack;
 
 class ScalarConverter
 {
@@ -16,17 +20,14 @@ public:
     ScalarConverter &operator=(const ScalarConverter &other);
     ~ScalarConverter();
 
+public: Stack* _stack;
+    Stack* returnBasedOnCondtion(char c);
+
 public:
     static void convert(std::string str);
 
 public:
-    static char castToChar(std::string str);
-    static int castToInt(std::string str);
-    static float castToFloat(std::string str);
-    static double castToDouble(std::string str);
-
-public:
-    static void displayChar(std::string str);
+    static void displayChar(std::string);
     static void displayInt(std::string str);
     static void displayFloat(std::string str);
     static void displayDouble(std::string str);

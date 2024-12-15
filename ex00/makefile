@@ -1,10 +1,10 @@
-SRC = main.cpp ScalarConverter.cpp
+SRC = main.cpp ScalarConverter.cpp Stack.cpp 
 
 OBJ = $(SRC:.cpp=.o)
 
 CC = c++
 
-CppFLAGS =  -g3
+CppFLAGS =  -Wall -Wextra -Werror -g3
 
 CppVERSION = -std=c++98
 

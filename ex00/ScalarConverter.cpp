@@ -23,12 +23,6 @@ ScalarConverter::~ScalarConverter()
     // std::cout << "[ScalarConverter] Distructor is called" << std::endl;
 }
 
-char ScalarConverter::castToChar(std::string str)
-{
-    std::cout << "->" << str << std::endl;
-    return str[0];
-}
-
 void ScalarConverter::displayChar(std::string str)
 {
     if (strrchr(str.c_str(), 'f') != 0){
@@ -52,15 +46,52 @@ void ScalarConverter::displayChar(std::string str)
 
 bool is_digits(std::string str)
 {
-    for (int i = 0; i < str.length(); i++) {
+    for (size_t i = 0; i < str.length(); i++) {
         int check = isdigit(str[i]);
         if (!check)
             return false;
     }
     return true;
 }
+int countAppearcanceOfChar(std::string s, char c) {
+  int count = 0;
+
+  for (size_t i = 0; i < s.length(); i++)
+    if (s[i] == c) count++;
+
+  return count;
+}
+
+
+Stack* ScalarConverter::returnBasedOnCondtion(char c){
+    (void)c;
+    for (int i = 0; i < this->_stack->getTop(); i++){
+        this->_stack->pop();
+    }
+    return this->_stack;
+}
+
+void pushStringToStack(std::string str, Stack* _stack){
+    for (int i = str.length(); i >= 0; i--){
+        _stack->push(str[i]);
+    }
+    
+    // size_t size = _stack->getTop();
+    // for (int i = 0; i < (int)size; i++){
+    //     std::cout << "->> " <<_stack->peek() << std::endl;
+    //     _stack->pop();
+    // }
+}
+// The only  think that I can relay on when it comes to handle
+// Int cast is the string must conatins these rules
+// (0.0) || (0.0f) || (0) || (-0.0) || (-42) || (+42) || (-42.0)
+// fi9 ma3ana atabi
+// so + and - should not be exist
 void ScalarConverter::displayInt(std::string str)
 {
+    Stack* _stack = new Stack();
+    pushStringToStack(str, _stack);
+    std::cout << "-> " << atoi(str.c_str()) << std::endl;
     if (strrchr(str.c_str(), 'f') != 0){
         str = str.substr(0, strrchr(str.c_str(), 'f') - str.c_str());
         int n = atoi(str.c_str());
