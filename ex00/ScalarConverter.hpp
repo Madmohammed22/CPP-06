@@ -25,6 +25,7 @@ public: Stack* _stack;
 
 public:
     static void convert(std::string str);
+    // void pushStringToStack(std::string str, Stack* _stack);
 
 public:
     static void displayChar(std::string);

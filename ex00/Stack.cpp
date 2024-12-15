@@ -42,3 +42,20 @@ char Stack::peek(){
 int Stack::getTop(){
     return this->top;
 }
+
+Stack* Stack::cloneStack(Stack * _Stack){
+    if (_Stack->getTop() < 0)
+        return NULL;
+    Stack *clone = new Stack();
+    for (int i = 0; i < _Stack->getTop(); i++){
+        clone->push(_Stack->peek());
+        _Stack->pop();
+    }
+
+    for (int i = 0; i < clone->getTop(); i++){
+        std::cout << "Value " << clone->peek() << std::endl;
+        clone->pop();
+    }
+    std::cout << "from the function size : " << _Stack->getTop() << std::endl;
+    return clone;
+}

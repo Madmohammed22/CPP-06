@@ -22,6 +22,7 @@ public:
     void push(char c);
     char pop();
     char peek();
+    Stack* cloneStack(Stack *_stack);
 
 public:
     int getTop();
