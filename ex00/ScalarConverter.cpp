@@ -128,7 +128,7 @@ bool pushStringToStack(std::string str, Stack *_stack)
 // the good new is ATOI does relay on what is beyond '.'
 // So just cound for the number of '.' and if '.' exist at the beginning of str or at the end
 
-bool scanString(std::string str, int was_INT, int was_FLOAT)
+bool ScalarConverter::scanString(std::string str, ScalarConverter *scalar)
 {
     double number = 0;
     if (((str.at(0) == '-' || str.at(0) == '+') && isdigit(str.at(1))) || isdigit(str.at(0)))
@@ -142,25 +142,32 @@ bool scanString(std::string str, int was_INT, int was_FLOAT)
             {
                 if ((str.at(i) == '.'))
                 {
-                    if (!(isdigit(str.at(i - 1)) && isdigit(str.at(i + 1))))
+                    if (!(isdigit(str.at(i - 1)) && (str.at(i + 1) == 'f' || isdigit(str.at(i + 1)))))
+                    {
                         return false;
+                    }
+                    scalar->was_float = 1;
                 }
-                else if (!isdigit(str.at(i)) && str[i + 1] != '\0')
+
+                if (str.at(i) == 'f' && str[i + 1] != '\0')
                 {
-                    if ((isdigit(str.at(i)) && str.at(i + 1) == 'f')){
-                        was_FLOAT = 1;
-                        if (was_FLOAT == 1)
-                            return true;
+                    if ((isdigit(str.at(i - 1)) && str.at(i) == 'f' && str[i + 1] == '\0') || (str.at(i - 1) == '.' && str.at(i) == 'f' && str[i + 1] == '\0'))
+                    {
+                        scalar->was_float = 1;
+                        return true;
                     }
-                    else if ((isdigit(str.at(i - 1)) && str.at(i) == 'f') && str[i + 1] == '\0'){
-                        was_FLOAT = 1;
-                        if (was_FLOAT == 1)
-                            return true;
-                    }
+
+                    scalar->was_float = 0;
+                    return false;
+                }
+                else if (str.at(i) != '.' && (str.at(i) != 'f' && !isdigit(str.at(i))))
+                {
+                    scalar->was_float = 0;
                     return false;
                 }
             }
-            catch (const std::exception &e){
+            catch (const std::exception &e)
+            {
                 return false;
             }
             if (str.at(i) != '.')
@@ -175,29 +182,34 @@ bool scanString(std::string str, int was_INT, int was_FLOAT)
     }
     else
         return false;
-    was_INT = 1;
-    if (was_INT == 1)
-        return true;
-    return  true;
+
+    scalar->was_int = 1;
+
+    if (scalar->was_float == 1)
+        scalar->was_int = 0;
+    return true;
 }
-void ScalarConverter::displayInt(std::string str)
+void ScalarConverter::displayInt(std::string str, ScalarConverter *scalar)
 {
-    int *for_int = 0;
-    int *for_float = 0;
-    if (!scanString(str, &for_int, &for_float))
+    // float i = 0.f;
+    // printf("%f\n", i);
+    if (!scalar->scanString(str, scalar))
     {
         std::cout << "int: impossible" << std::endl;
     }
-    else{
-        std::cout << "INT flag: " << for_int << " | FLOAT flag: " << for_float << std::endl;
+    else
+    {
         std::cout << "int: " << atoi(str.c_str()) << std::endl;
     }
 }
 
 void ScalarConverter::convert(std::string str)
 {
-    displayInt(str);
+    ScalarConverter *scalar = new ScalarConverter();
+    displayInt(str, scalar);
+    std::cout << "--> INT flag: " << scalar->was_int << " | FLOAT flag: " << scalar->was_float << std::endl;
     // displayChar(str);
     // displayFloat(str);
     // displayDouble(str);
+    delete scalar;
 }

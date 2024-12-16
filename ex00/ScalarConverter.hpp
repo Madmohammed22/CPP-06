@@ -25,13 +25,18 @@ public: Stack* _stack;
 
 public:
     static void convert(std::string str);
+    bool scanString(std::string str, ScalarConverter* scalar);
     // void pushStringToStack(std::string str, Stack* _stack);
 
 public:
     static void displayChar(std::string);
-    static void displayInt(std::string str);
+    static void displayInt(std::string str, ScalarConverter* scalar);
     static void displayFloat(std::string str);
     static void displayDouble(std::string str);
+
+public:
+    int was_int;
+    int was_float;
 };
 
 #endif

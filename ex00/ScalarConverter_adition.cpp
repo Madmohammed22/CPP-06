@@ -1,5 +1,5 @@
 #include "ScalarConverter.hpp"
-ScalarConverter::ScalarConverter()
+ScalarConverter::ScalarConverter() : was_int(0), was_float(0)
 {
     // std::cout << "[ScalarConverter] Default constructor is called" << std::endl;
 }
@@ -7,7 +7,7 @@ ScalarConverter::ScalarConverter()
 ScalarConverter::ScalarConverter(const ScalarConverter &s)
 {
     (void)s;
-    std::cout << "[ScalarConverter] Copy constructor is called" << std::endl;
+    // std::cout << "[ScalarConverter] Copy constructor is called" << std::endl;
 }
 
 ScalarConverter &ScalarConverter::operator=(const ScalarConverter &other)
