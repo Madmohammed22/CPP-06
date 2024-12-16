@@ -9,6 +9,7 @@
 #include <bits/stdc++.h>
 #include <limits>
 #include "Stack.hpp"
+#include <cmath>
 
 class Stack;
 
@@ -29,10 +30,10 @@ public:
     // void pushStringToStack(std::string str, Stack* _stack);
 
 public:
-    static void displayChar(std::string);
+    static void displayChar(std::string, ScalarConverter* scalar);
     static void displayInt(std::string str, ScalarConverter* scalar);
-    static void displayFloat(std::string str);
-    static void displayDouble(std::string str);
+    static void displayFloat(std::string str,ScalarConverter* scalar);
+    static void displayDouble(std::string str, ScalarConverter* scalar);
 
 public:
     int was_int;
