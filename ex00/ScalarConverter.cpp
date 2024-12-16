@@ -5,8 +5,10 @@ int countAppearcanceOfChar(std::string s, char c)
     int count = 0;
 
     for (size_t i = 0; i < s.length(); i++)
-        if (s[i] == c){
-            for (size_t j = i + 1; j < s.length(); j++){
+        if (s[i] == c)
+        {
+            for (size_t j = i + 1; j < s.length(); j++)
+            {
                 if (isdigit(s.at(j)))
                     count++;
             }
@@ -102,11 +104,27 @@ void ScalarConverter::displayChar(std::string str, ScalarConverter *scalar)
 
 void ScalarConverter::displayInt(std::string str, ScalarConverter *scalar)
 {
-    if (!scalar->scanString(str, scalar)){
+    if (!std::strcmp(str.c_str(), "+inff"))
+    {
+        displayChar(str, scalar);
+        int infinity = std::numeric_limits<int>::max();
+        std::cout << "int: " << infinity << std::endl;
+        return;
+    }
+    else if (!std::strcmp(str.c_str(), "-inff"))
+    {
+        displayChar(str, scalar);
+        int infinity = std::numeric_limits<int>::min();
+        std::cout << "int: " << infinity << std::endl;
+        return;
+    }
+    if (!scalar->scanString(str, scalar))
+    {
         displayChar(str, scalar);
         std::cout << "int: impossible" << std::endl;
     }
-    else{
+    else
+    {
         displayChar(str, scalar);
         std::cout << "int: " << atoi(str.c_str()) << std::endl;
     }
@@ -114,6 +132,22 @@ void ScalarConverter::displayInt(std::string str, ScalarConverter *scalar)
 // #define NAN ScalarConverter::
 void ScalarConverter::displayFloat(std::string str, ScalarConverter *scalar)
 {
+    if (!std::strcmp(str.c_str(), "+inff"))
+    {
+        // std::cout << std::fixed;
+        std::cout << std::setprecision(4);
+        float infinity = std::numeric_limits<float>::max();
+        std::cout << "float: " << infinity << std::endl;
+        return;
+    }
+    else if (!std::strcmp(str.c_str(), "-inff"))
+    {
+        // std::cout << std::fixed;
+        std::cout << std::setprecision(4);
+        float infinity = std::numeric_limits<float>::min();
+        std::cout << "float: " << infinity << std::endl;
+        return;
+    }
     if (!std::strcmp(str.c_str(), "nan"))
     {
         std::cout << "float: " << str << "f" << std::endl;
@@ -123,15 +157,17 @@ void ScalarConverter::displayFloat(std::string str, ScalarConverter *scalar)
         std::cout << "float: impossible" << std::endl;
     else
     {
-        if (scalar->was_float){
+        if (scalar->was_float)
+        {
             std::cout << std::fixed;
-            std::cout << std::setprecision(countAppearcanceOfChar(str,'.'));
+            std::cout << std::setprecision(countAppearcanceOfChar(str, '.'));
             if (countAppearcanceOfChar(str, '.') == 0)
-                std::cout << "float: " << atof(str.c_str())  << std::endl;
+                std::cout << "float: " << atof(str.c_str()) << std::endl;
             else
                 std::cout << "float: " << atof(str.c_str()) << "f" << std::endl;
         }
-        if (scalar->was_int){
+        if (scalar->was_int)
+        {
             std::cout << std::fixed;
             std::cout << std::setprecision(1);
             std::cout << "float: " << atof(str.c_str()) << "f" << std::endl;
@@ -141,24 +177,47 @@ void ScalarConverter::displayFloat(std::string str, ScalarConverter *scalar)
 
 void ScalarConverter::displayDouble(std::string str, ScalarConverter *scalar)
 {
+    if (!std::strcmp(str.c_str(), "+inff"))
+    {
+        // std::cout << std::fixed;
+        std::cout << std::setprecision(4);
+        double infinity = std::numeric_limits<double>::max();
+        std::cout << "double: " << infinity << std::endl;
+        return;
+    }
+    else if (!std::strcmp(str.c_str(), "-inff"))
+    {
+        // std::cout << std::fixed;
+        std::cout << std::setprecision(4);
+        double infinity = std::numeric_limits<double>::min();
+        std::cout << "double: " << infinity << std::endl;
+        return;
+    }
     if (!std::strcmp(str.c_str(), "nan"))
     {
-        std::cout << "float: " << str << std::endl;
+        std::cout << "double: " << str << "f" << std::endl;
+        return;
+    }
+    if (!std::strcmp(str.c_str(), "nan"))
+    {
+        std::cout << "double: " << str << std::endl;
         return;
     }
     if (!scalar->scanString(str, scalar))
         std::cout << "double: impossible" << std::endl;
     else
     {
-        if (scalar->was_float){
+        if (scalar->was_float)
+        {
             std::cout << std::fixed;
-            std::cout << std::setprecision(countAppearcanceOfChar(str,'.'));
+            std::cout << std::setprecision(countAppearcanceOfChar(str, '.'));
             if (countAppearcanceOfChar(str, '.') == 0)
                 std::cout << "doubl: " << atof(str.c_str()) << std::endl;
             std::cout << "doubl: " << atof(str.c_str()) << std::endl;
         }
 
-        if (scalar->was_int){
+        if (scalar->was_int)
+        {
             std::cout << std::fixed;
             std::cout << std::setprecision(1);
             std::cout << "doubl: " << atof(str.c_str()) << std::endl;
@@ -171,7 +230,5 @@ void ScalarConverter::convert(std::string str)
     displayInt(str, scalar);
     displayFloat(str, scalar);
     displayDouble(str, scalar);
-    
-
     delete scalar;
 }
