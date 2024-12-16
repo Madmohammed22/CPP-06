@@ -76,10 +76,11 @@ bool pushStringToStack(std::string str, Stack *_stack)
     Stack *_reversedStack = new Stack();
     for (int i = str.length(); i >= 0; i--)
         _stack->push(str[i]);
-    
+
     Stack *test = new Stack();
     test = test->cloneStack(_stack);
-    for (int i = 0; i < test->getTop(); i++){
+    for (int i = 0; i < test->getTop(); i++)
+    {
         std::cout << "[" << test->peek() << "]" << std::endl;
         test->pop();
     }
@@ -95,33 +96,102 @@ bool pushStringToStack(std::string str, Stack *_stack)
     return true;
 }
 
-void ScalarConverter::displayInt(std::string str)
+// void ScalarConverter::displayInts(std::string str)
+// {
+//     Stack *_stack = new Stack();
+//     if (pushStringToStack(str, _stack) == false)
+//     {
+//         std::cout << "[INVALID]" << std::endl;
+//         return;
+//     }
+//     else
+//         std::cout << "[VALID]" << std::endl;
+
+//     if (strrchr(str.c_str(), 'f') != 0)
+//     {
+//         str = str.substr(0, strrchr(str.c_str(), 'f') - str.c_str());
+//         int n = atoi(str.c_str());
+//         std::cout << "int: " << n << std::endl;
+//         return;
+//     }
+
+//     if (is_digits(str) == false)
+//     {
+//         std::cout << "int: impossible" << std::endl;
+//         return;
+//     }
+//     int n = atoi(str.c_str());
+//     std::cout << "int: " << n << std::endl;
+// }
+
+// [-42.00]
+// the good new is ATOI does relay on what is beyond '.'
+// So just cound for the number of '.' and if '.' exist at the beginning of str or at the end
+
+bool scanString(std::string str, int was_INT, int was_FLOAT)
 {
-    Stack *_stack = new Stack();
-    if (pushStringToStack(str, _stack) == false)
+    double number = 0;
+    if (((str.at(0) == '-' || str.at(0) == '+') && isdigit(str.at(1))) || isdigit(str.at(0)))
     {
-        std::cout << "[INVALID]" << std::endl;
-        return;
+        size_t start = 0;
+        if (!isdigit(str.at(0)))
+            start = 1;
+        for (size_t i = start; i < str.length(); i++)
+        {
+            try
+            {
+                if ((str.at(i) == '.'))
+                {
+                    if (!(isdigit(str.at(i - 1)) && isdigit(str.at(i + 1))))
+                        return false;
+                }
+                else if (!isdigit(str.at(i)) && str[i + 1] != '\0')
+                {
+                    if ((isdigit(str.at(i)) && str.at(i + 1) == 'f')){
+                        was_FLOAT = 1;
+                        if (was_FLOAT == 1)
+                            return true;
+                    }
+                    else if ((isdigit(str.at(i - 1)) && str.at(i) == 'f') && str[i + 1] == '\0'){
+                        was_FLOAT = 1;
+                        if (was_FLOAT == 1)
+                            return true;
+                    }
+                    return false;
+                }
+            }
+            catch (const std::exception &e){
+                return false;
+            }
+            if (str.at(i) != '.')
+            {
+                number = 10 * number + str.at(i) - '0';
+                if (number > INT_MAX || number < INT_MIN)
+                    return false;
+            }
+            else
+                number = 0;
+        }
     }
     else
-        std::cout << "[VALID]" << std::endl;
-
-      
-    if (strrchr(str.c_str(), 'f') != 0)
-    {
-        str = str.substr(0, strrchr(str.c_str(), 'f') - str.c_str());
-        int n = atoi(str.c_str());
-        std::cout << "int: " << n << std::endl;
-        return;
-    }
-
-    if (is_digits(str) == false)
+        return false;
+    was_INT = 1;
+    if (was_INT == 1)
+        return true;
+    return  true;
+}
+void ScalarConverter::displayInt(std::string str)
+{
+    int *for_int = 0;
+    int *for_float = 0;
+    if (!scanString(str, &for_int, &for_float))
     {
         std::cout << "int: impossible" << std::endl;
-        return;
     }
-    int n = atoi(str.c_str());
-    std::cout << "int: " << n << std::endl;
+    else{
+        std::cout << "INT flag: " << for_int << " | FLOAT flag: " << for_float << std::endl;
+        std::cout << "int: " << atoi(str.c_str()) << std::endl;
+    }
 }
 
 void ScalarConverter::convert(std::string str)
