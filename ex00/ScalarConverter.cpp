@@ -161,8 +161,12 @@ void ScalarConverter::displayFloat(std::string str, ScalarConverter *scalar)
         {
             std::cout << std::fixed;
             std::cout << std::setprecision(countAppearcanceOfChar(str, '.'));
-            if (countAppearcanceOfChar(str, '.') == 0)
+            if (countAppearcanceOfChar(str, '.') == 0){
+                std::cout << std::fixed;
+                std::cout << std::setprecision(1);
                 std::cout << "float: " << atof(str.c_str()) << std::endl;
+                return;
+            }
             else
                 std::cout << "float: " << atof(str.c_str()) << "f" << std::endl;
         }
@@ -212,7 +216,12 @@ void ScalarConverter::displayDouble(std::string str, ScalarConverter *scalar)
             std::cout << std::fixed;
             std::cout << std::setprecision(countAppearcanceOfChar(str, '.'));
             if (countAppearcanceOfChar(str, '.') == 0)
+            {
+                std::cout << std::fixed;
+                std::cout << std::setprecision(1);
                 std::cout << "doubl: " << atof(str.c_str()) << std::endl;
+                return;
+            }
             std::cout << "doubl: " << atof(str.c_str()) << std::endl;
         }
 
