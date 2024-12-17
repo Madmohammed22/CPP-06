@@ -1,5 +1,30 @@
 #include "ScalarConverter.hpp"
 
+ScalarConverter::ScalarConverter() : was_int(0), was_float(0)
+{
+    // std::cout << "[ScalarConverter] Default constructor is called" << std::endl;
+}
+
+ScalarConverter::ScalarConverter(const ScalarConverter &s)
+{
+    this->was_int = s.was_int;
+    this->was_float = s.was_float;
+    // std::cout << "[ScalarConverter] Copy constructor is called" << std::endl;
+}
+
+ScalarConverter &ScalarConverter::operator=(const ScalarConverter &other)
+{
+    if (this == &other)
+        return *this;
+    // std::cout << "[ScalarConverter] Assignment operator constructor is called" << std::endl;
+    return *this;
+}
+
+ScalarConverter::~ScalarConverter()
+{
+    // std::cout << "[ScalarConverter] Distructor is called" << std::endl;
+}
+
 int countAppearcanceOfChar(std::string s, char c)
 {
     int count = 0;
@@ -129,7 +154,7 @@ void ScalarConverter::displayInt(std::string str, ScalarConverter *scalar)
         std::cout << "int: " << atoi(str.c_str()) << std::endl;
     }
 }
-// #define NAN ScalarConverter::
+
 void ScalarConverter::displayFloat(std::string str, ScalarConverter *scalar)
 {
     if (!std::strcmp(str.c_str(), "+inff"))
@@ -148,9 +173,9 @@ void ScalarConverter::displayFloat(std::string str, ScalarConverter *scalar)
         std::cout << "float: " << infinity << std::endl;
         return;
     }
-    if (!std::strcmp(str.c_str(), "nan"))
+    if (!std::strcmp(str.c_str(), "nan") || !std::strcmp(str.c_str(), "nanf"))
     {
-        std::cout << "float: " << str << "f" << std::endl;
+        std::cout << "float: " << "nan" << "f" << std::endl;
         return;
     }
     if (!scalar->scanString(str, scalar))
@@ -181,7 +206,7 @@ void ScalarConverter::displayFloat(std::string str, ScalarConverter *scalar)
 
 void ScalarConverter::displayDouble(std::string str, ScalarConverter *scalar)
 {
-    if (!std::strcmp(str.c_str(), "+inff"))
+    if (!std::strcmp(str.c_str(), "+inf"))
     {
         // std::cout << std::fixed;
         std::cout << std::setprecision(4);
@@ -189,7 +214,7 @@ void ScalarConverter::displayDouble(std::string str, ScalarConverter *scalar)
         std::cout << "double: " << infinity << std::endl;
         return;
     }
-    else if (!std::strcmp(str.c_str(), "-inff"))
+    else if (!std::strcmp(str.c_str(), "-inf"))
     {
         // std::cout << std::fixed;
         std::cout << std::setprecision(4);
@@ -197,14 +222,10 @@ void ScalarConverter::displayDouble(std::string str, ScalarConverter *scalar)
         std::cout << "double: " << infinity << std::endl;
         return;
     }
-    if (!std::strcmp(str.c_str(), "nan"))
+
+    if (!std::strcmp(str.c_str(), "nan") || !std::strcmp(str.c_str(), "nanf"))
     {
-        std::cout << "double: " << str << "f" << std::endl;
-        return;
-    }
-    if (!std::strcmp(str.c_str(), "nan"))
-    {
-        std::cout << "double: " << str << std::endl;
+        std::cout << "double: " << "nan" << std::endl;
         return;
     }
     if (!scalar->scanString(str, scalar))
@@ -233,6 +254,7 @@ void ScalarConverter::displayDouble(std::string str, ScalarConverter *scalar)
         }
     }
 }
+
 void ScalarConverter::convert(std::string str)
 {
     // some Instruction mast be perform, with that said use function with
