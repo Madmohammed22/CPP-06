@@ -23,12 +23,14 @@ Serializer::~Serializer(){
 
 uintptr_t Serializer::serialize(Data* ptr){
     // *ptr->ptr_t = 10;
-    uintptr_t data = reinterpret_cast<std::uintptr_t>(ptr->cptr_t);
+    // uintptr_t data = reinterpret_cast<std::uintptr_t>(ptr->cptr_t);
+    uintptr_t data = reinterpret_cast<std::uintptr_t>(ptr->ptr_t);
     return data;
 }
 
 Data* Serializer::deserialize(uintptr_t raw){
     Data *data = new Data;
-    data->cptr_t = reinterpret_cast<char *>(raw);
+    // data->cptr_t = reinterpret_cast<char *>(raw);
+    data->ptr_t = reinterpret_cast<int *>(raw);
     return data;
 }
