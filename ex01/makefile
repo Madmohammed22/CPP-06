@@ -6,7 +6,7 @@ CC = c++
 
 CppFLAGS =  -Wall -Wextra -Werror -g3
 
-CppVERSION = -std=c++98
+CppVERSION = -std=c++11 # -std=c++98 
 
 NAME = convert
 
