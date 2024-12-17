@@ -10,15 +10,18 @@ int main(int argc, char **argv){
     Serializer s;
     Data* data = new Data;
     int data_struct = atoi(argv[1]);
+    int data_test = data_struct * 0;
     data->ptr_t = &data_struct;
     // data->cptr_t = strdup("this is just a test...");
     uintptr_t data_t = s.serialize(data);
-    uint32_t x = 2;
-    uint32_t y = 3;
-    // ((uintptr_t)x >> 8) + y
-    data_t = 10 + (x* 0 + y * 0);
-    std::cout << data_t << std::endl;
-    return EXIT_FAILURE;
+    // unsigned int n1 = __INT_MAX__;
+    // unsigned long n2 = __INT32_MAX__;
+    Data* test_data = new Data;
+    test_data->ptr_t = &data_test;
+    data_t = s.serialize(data); 
+
+    // std::cout << data_t << std::endl;
+    // return EXIT_FAILURE;
     // char *desrialize_data = reinterpret_cast<char *>(data);
     Data *new_Data = new Data;
     new_Data = s.deserialize(data_t);
