@@ -7,6 +7,6 @@ int main(int argc, char **argv){
         std::cout << "<convert> put some data to convert" << std::endl;
         return EXIT_FAILURE;
     }
-
+    
     return EXIT_SUCCESS;
 }
