@@ -1,12 +1,12 @@
-SRC = main.cpp 
-
+SRC = main.cpp Base.cpp A.cpp B.cpp C.cpp
+# B.cpp C.cpp
 OBJ = $(SRC:.cpp=.o)
 
 CC = c++
+# -Wall -Wextra -Werror 
+CppFLAGS =  -g3
 
-CppFLAGS =  -Wall -Wextra -Werror -g3
-
-CppVERSION = -std=c++11 # -std=c++98 
+CppVERSION = -std=c++98 ##-std=c++11 #  
 
 NAME = convert
 
