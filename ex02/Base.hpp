@@ -14,8 +14,8 @@ class Base {
         void identify(Base* p);
         void identify(Base& p);
 
-    // public:
-    //     virtual void function();
+    private:
+        int number;
 };
 
 #endif

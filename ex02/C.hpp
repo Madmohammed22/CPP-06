@@ -6,7 +6,7 @@
 class C : public Base
 {
 public:
-    void C_function();
+    void function();
 };
 
 #endif

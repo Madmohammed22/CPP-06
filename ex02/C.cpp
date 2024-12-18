@@ -1,5 +1,5 @@
 #include "C.hpp"
 
-void C::C_function(){
+void C::function(){
     std::cout << "From C class" << std::endl;
 }

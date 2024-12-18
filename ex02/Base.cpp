@@ -23,29 +23,42 @@ int returnNumber(){
     return number;
 }
 
-// void Base::function(){
-//     std::cout << "From A class" << std::endl;
-// }
-
 Base* Base::generate(){
     Base* _Base = new Base;
     int number = returnNumber();
-    if (number == 1)
+
+    if (number == 1){
+        this->number = number;
         A* D = new A;
-    else if (number == 2)
+        Base *returnBase = static_cast<A*>(_Base);
+        return returnBase; 
+    }
+    else if (number == 2){
+        this->number = number;
         B* D = new B;
-    else
+        Base *returnBase = static_cast<B*>(_Base);
+        return returnBase; 
+    }
+    else{
+        this->number = number;
         C* D = new C;
-    if (static_cast<B*>(_Base)){
-       return _Base;
+        Base *returnBase = static_cast<C*>(_Base);
+        return returnBase;
     }
     return NULL;
 }
 
 void Base::identify(Base* p){
-    static_cast<B*>(p)->function();   
+    int number = returnNumber();
+    if (number == 1)
+        static_cast<A*>(p)->function();
+    else if (number == 2)
+        static_cast<B*>(p)->function();
+    else
+        static_cast<C*>(p)->function();
 }
 
 void Base::identify(Base& p){
     // p.function();
+    // static_cast<B>(p).
 }
