@@ -1,4 +1,5 @@
-#include "ScalarConverter.hpp"
+#include "Serializer.hpp"
+
 
 int main(int argc, char **argv){
     
@@ -6,7 +7,6 @@ int main(int argc, char **argv){
         std::cout << "<convert> put some data to convert" << std::endl;
         return EXIT_FAILURE;
     }
-    ScalarConverter* scalar = new ScalarConverter();
-    scalar->convert(argv[1]);
+
     return EXIT_SUCCESS;
 }
