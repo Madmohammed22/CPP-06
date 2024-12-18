@@ -1,10 +1,9 @@
 #ifndef SERIALIZER_HPP
 #define SERIALIZER_HPP
 
-#include <iostream>
-#include <cstdlib>
 #include <string.h>
 #include <cstdint>
+#include <iostream>
 
 struct Data
 {

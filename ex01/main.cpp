@@ -38,6 +38,7 @@ int main(int argc, char **argv){
         uintptr_t result = s.serialize(data);
         data = s.deserialize(result);
         std::cout << "Output : " << *data->ptr_t << std::endl;
+        delete data;
         return (EXIT_SUCCESS);
     }
 
@@ -49,6 +50,7 @@ int main(int argc, char **argv){
         uintptr_t result = s.serialize(data);
         data = s.deserialize(result);
         std::cout << "Output : " << *data->ptr_t << std::endl;
+        delete data;
         return EXIT_SUCCESS;
     }
     std::cout << "-----------------------------" << std::endl;
@@ -59,6 +61,7 @@ int main(int argc, char **argv){
         data->cptr_t = strdup(argv[1]);
         data = s.deserialize(s.serialize(data));
         std::cout << "Output : " << data->cptr_t << std::endl;
+        delete data;
         return EXIT_SUCCESS;
     }
 }
