@@ -20,26 +20,32 @@ int returnNumber()
 base-to-derived conversions are not allowed
 with dynamic_cast unless the base class is polymorphic.
  */
-class Test : public Base{};
+
+/*
+A class that declares or inherits a virtual
+function is called a polymorphic class
+*/
+class Test : public Base
+{
+};
 Base *Base::generate()
 {
     int number = returnNumber();
     if (number == 1)
     {
-    //    Base *_Base = dynamic_cast<Base*>(new A);
-       Base *_Base = dynamic_cast<Base*>(new Test);
-       return _Base;
-        
+           Base *_Base = dynamic_cast<Base*>(new A);
+        // Base *_Base = dynamic_cast<Base *>(new Test);
+        return _Base;
     }
 
     if (number == 2)
     {
-        Base *_Base = dynamic_cast<Base*>(new B);
+        Base *_Base = dynamic_cast<Base *>(new B);
         return _Base;
     }
     if (number == 3)
     {
-        Base *_Base = dynamic_cast<Base*>(new C);
+        Base *_Base = dynamic_cast<Base *>(new C);
         return _Base;
     }
     return NULL;
@@ -59,7 +65,34 @@ void Base::identify(Base *p)
 
 void Base::identify(Base &p)
 {
-    // p.function();
-    // static_cast<B>(p).
-}
 
+    try
+    {
+        dynamic_cast<A &>(p).function();
+        return;
+    }
+    catch (const std::bad_cast &e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+
+    try
+    {
+        dynamic_cast<B &>(p).function();
+        return;
+    }
+    catch (const std::bad_cast &e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+
+    try
+    {
+        dynamic_cast<C &>(p).function();
+        return;
+    }
+    catch (const std::bad_cast &e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+}

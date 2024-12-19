@@ -8,8 +8,19 @@ int main(int argc, char **argv){
         return EXIT_FAILURE;
     }
     (void)argv;
-    Base *base = new Base;
-    base = base->generate();
-    base->identify(base);
+    {
+        Base *base = new Base;
+        base = base->generate();
+        base->identify(base);
+    }
+
+    std::cout << "------------" << std::endl;
+    std::cout << "------------" << std::endl;
+
+    {
+        Base *base = new Base;
+        base = base->generate();
+        base->identify(base);
+    }
     return EXIT_SUCCESS;
 }
