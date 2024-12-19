@@ -22,31 +22,14 @@ Serializer::~Serializer(){
 }
 
 uintptr_t Serializer::serialize(Data* ptr){
-    // if (ptr->cptr_t)
-    //     return reinterpret_cast<std::uintptr_t>(&ptr->cptr_t);
     if(ptr->ptr_t){
-        // uintptr_t ptrInteger = reinterpret_cast<std::uintptr_t>(&ptr->ptr_t);
-        // ptrInteger += 0;
-        // int *data = reinterpret_cast<int *>(ptrInteger);
-        // std::cout << "Example : " << *data << std::endl;
-        return reinterpret_cast<std::uintptr_t>(ptr->ptr_t);
+        return reinterpret_cast<std::uintptr_t>(ptr);
     }
     return 0;
 }
 
 Data* Serializer::deserialize(uintptr_t raw){
     Data *data = new Data;
-    // std::cout << raw << std::endl;
-    // if (data->ptr_t != NULL){
-    //     data->ptr_t = reinterpret_cast<int *>(raw);
-    //     return data;
-    // }
-    // if (data->cptr_t != NULL){
-    //     data->cptr_t = reinterpret_cast<char *>(raw);
-    //     return data;
-    // }
-    // data->cptr_t = reinterpret_cast<char *>(raw);
-    data->ptr_t = reinterpret_cast<int *>(raw);
-    
+    data = reinterpret_cast<Data *>(raw);
     return data;
 }

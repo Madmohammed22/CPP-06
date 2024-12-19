@@ -15,18 +15,48 @@ int main(int argc, char **argv){
     }
 
     {
+        Serializer s;
+        Data* data = new Data {};
+        int number = 10;
+        data->ptr_t = &number;
+        data->cptr_t = strdup("this is just a test");
+        uintptr_t holder = s.serialize(data);
+        data = s.deserialize(holder);
+        std::cout << *data->ptr_t << std::endl;
+        std::cout << data->cptr_t << std::endl;
+        return EXIT_SUCCESS;
+    }
+
+    {
+        int input = atoi(argv[1]);
+        int *f_ptr = &input;
+        uintptr_t save = reinterpret_cast<std::uintptr_t>(f_ptr);
+        int *n_save = reinterpret_cast<int *>(save);
+        std::cout << *f_ptr << std::endl;
+        std::cout << *n_save << std::endl;
+        return EXIT_SUCCESS;
+    }
+
+    std::cout << "------------------" << std::endl;
+
+    {
         s_main struct_data = {100, 200};
         char buffer_first[sizeof(struct_data)];
         memcpy(buffer_first, &struct_data, sizeof(struct_data));
         std::cout << *((int *)buffer_first) << std::endl;
-        
-        uintptr_t holder = reinterpret_cast<uintptr_t>(&buffer_first + 1);
+        int input = atoi(argv[1]);
+        float f_input = input * 1.00;
+        float *f_ptr = &f_input;
+        uintptr_t save = reinterpret_cast<std::uintptr_t>(f_ptr);
+        int *n_save = reinterpret_cast<int *>(save);
+        std::cout << *f_ptr << std::endl;
+        std::cout << *n_save << std::endl;
+        uintptr_t holder = reinterpret_cast<uintptr_t>(&buffer_first);
         // holder += 0;
         std::cout << *reinterpret_cast<int *>(holder) << std::endl;
         return 0;
         Serializer s;
         Data* data = new Data {};
-        int input = atoi(argv[1]);
         data->ptr_t = &input;
         data->cptr_t = strdup("this is just a test");
         char buffer[sizeof(data)];
@@ -41,7 +71,7 @@ int main(int argc, char **argv){
         delete data;
         return (EXIT_SUCCESS);
     }
-
+    std::cout << "------------------" << std::endl;
     {
         Serializer s;
         Data* data = new Data;
