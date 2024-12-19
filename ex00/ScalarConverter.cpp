@@ -258,7 +258,7 @@ void ScalarConverter::displayDouble(std::string str, ScalarConverter *scalar)
 void ScalarConverter::convert(std::string str)
 {
     // some Instruction mast be perform, with that said use function with
-    // flag to specify sertain dissision.
+    // flag to specify sertain dissision. fi9 m3ana asat
     ScalarConverter *scalar = new ScalarConverter();
     displayInt(str, scalar);
     displayFloat(str, scalar);
