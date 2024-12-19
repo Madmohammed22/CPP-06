@@ -6,6 +6,9 @@
 class A : public Base{
     public:
         void function();
+
+    public :
+        ~A();
 };
 
 #endif

@@ -7,6 +7,9 @@ class C : public Base
 {
 public:
     void function();
+
+public:
+    ~C();
 };
 
 #endif

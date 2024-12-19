@@ -4,7 +4,8 @@ OBJ = $(SRC:.cpp=.o)
 
 CC = c++
 # -Wall -Wextra -Werror 
-CppFLAGS =  -g3
+# CppFLAGS =  -g3 -fsanitize=address -static-libasan -fno-omit-frame-pointer
+CppFLAGS =  -g3 
 
 CppVERSION = -std=c++98 ##-std=c++11 #  
 

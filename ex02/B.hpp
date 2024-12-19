@@ -3,9 +3,13 @@
 
 #include "Base.hpp"
 
-class B : public Base{
-    public:
-        void function();
+class B : public Base
+{
+public:
+    void function();
+
+public:
+    ~B();
 };
 
 #endif
